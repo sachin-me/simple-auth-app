@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 import helperFunctions from "../../Helper";
 import actions from "../../store/actions";
 import Message from "../Common/Message";
-import SignupForm from "./SignupForm";
+import SigninForm from "./SigninForm";
 let { validateEmail, validatePassword } = helperFunctions;
 
-function Signup(props) {
-  const [name, setName] = useState("");
+function Signin(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validEmail, setValidEmail] = useState(true);
@@ -25,11 +24,10 @@ function Signup(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const payload = {
-      name,
       email,
       password,
     };
-    dispatch(actions.createUser(payload));
+    dispatch(actions.loginUser(payload));
   };
 
   const validateEmailPassword = () => {
@@ -41,19 +39,19 @@ function Signup(props) {
     if (email || password) {
       if (email && !validEmail) {
         return dispatch({
-          type: "CREATE_USER_FAIL",
+          type: "SIGNIN_USER_FAIL",
           error: "*Enter valid email address (e.g. abc@gmail.com)",
         });
       }
       if (password && !validPassword) {
         return dispatch({
-          type: "CREATE_USER_FAIL",
+          type: "SIGNIN_USER_FAIL",
           error:
             "*Password must contain 4-8 characters and at least One Uppercase letter and one numeric value.",
         });
       } else {
         return dispatch({
-          type: "CREATE_USER_FAIL",
+          type: "SIGNIN_USER_FAIL",
           error: "",
         });
       }
@@ -62,20 +60,18 @@ function Signup(props) {
 
   return (
     <div className="form-wrapper">
-      <SignupForm
-        setName={setName}
+      <SigninForm
         setEmail={setEmail}
         setPassword={setPassword}
         handleSubmit={handleSubmit}
         validateEmailPassword={validateEmailPassword}
       />
       <Message message={message} error={error} />
-      <div className="mt-2 center">
-        <span>Already has an account? </span>
-        <Link to="/signin">Login</Link>
+      <div className="center mt-2">
+        <Link to="/signup">Create an account</Link>
       </div>
     </div>
   );
 }
 
-export default Signup;
+export default Signin;
