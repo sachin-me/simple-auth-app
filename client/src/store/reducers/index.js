@@ -18,6 +18,18 @@ function rootReducer(state = initState, action) {
         error: action.error,
       };
     }
+    case "SIGNIN_USER_SUCCESS": {
+      return {
+        ...state,
+        message: action.message,
+      };
+    }
+    case "SIGNIN_USER_FAIL": {
+      return {
+        ...state,
+        error: action.error,
+      };
+    }
     default: {
       return state;
     }
