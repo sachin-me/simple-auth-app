@@ -50,7 +50,7 @@ module.exports = {
                 data: {
                   id: newUser._id,
                   name,
-                  email
+                  email,
                 },
               });
             }
@@ -62,5 +62,36 @@ module.exports = {
         }
       }
     });
+  },
+  loginuser: (req, res, next) => {
+    passport.authenticate("local", (err, data, info) => {
+      if (err) {
+        return res.status(403).json({
+          error: "Not able to login user. Please try after sometime :)",
+        });
+      }
+      if (!data) {
+        return res.status(404).json({
+          error: "No matching user found. Please create a user.",
+        });
+      }
+      const id = data._id;
+      const { name, email } = data;
+      const sId = req.session.id;
+
+      res.cookie("app_session", sId, {
+        expires: new Date(Date.now() + 84000000),
+        httpOnly: true,
+      });
+
+      res.json({
+        message: "You're logged in, successfully.",
+        data: {
+          name,
+          email,
+          id,
+        },
+      });
+    })(req, res, next);
   },
 };

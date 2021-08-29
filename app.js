@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
 const cors = require("cors");
 const path = require("path");
+const passport = require("passport");
 require("dotenv").config();
 
 const port = process.env.PORT;
@@ -50,6 +51,8 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use(cors());
+
+require("./server/controllers/authController/passport")(passport);
 
 app.use("/api", require("./server/routes/api"));
 app.use(require("./server/routes/index"));
