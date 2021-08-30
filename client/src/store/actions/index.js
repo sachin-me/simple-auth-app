@@ -1,7 +1,7 @@
 const uri = "/api";
 
 const actions = {
-  createUser: (data) => {
+  createUser: (data, cb) => {
     return (dispatch) => {
       fetch(`${uri}/signup`, {
         method: "POST",
@@ -17,16 +17,18 @@ const actions = {
               type: "CREATE_USER_SUCCESS",
               message: user.message,
             });
+            cb(true);
           } else {
             dispatch({
               type: "CREATE_USER_FAIL",
               error: user.error,
             });
+            cb(false);
           }
         });
     };
   },
-  loginUser: (data) => {
+  loginUser: (data, cb) => {
     return (dispatch) => {
       fetch(`${uri}/signin`, {
         method: "POST",
@@ -42,11 +44,13 @@ const actions = {
               type: "SIGNIN_USER_SUCCESS",
               message: user.message,
             });
+            cb(true);
           } else {
             dispatch({
               type: "SIGNIN_USER_FAIL",
               error: user.error,
             });
+            cb(false);
           }
         });
     };

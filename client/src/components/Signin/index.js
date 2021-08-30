@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import helperFunctions from "../../Helper";
 import actions from "../../store/actions";
 import Message from "../Common/Message";
@@ -27,7 +27,13 @@ function Signin(props) {
       email,
       password,
     };
-    dispatch(actions.loginUser(payload));
+    dispatch(
+      actions.loginUser(payload, (success) => {
+        if (success) {
+          props.history.push("/");
+        }
+      })
+    );
   };
 
   const validateEmailPassword = () => {
