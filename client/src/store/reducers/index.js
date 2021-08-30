@@ -30,6 +30,19 @@ function rootReducer(state = initState, action) {
         error: action.error,
       };
     }
+    case "LOGGED_IN_USER_SUCCESS": {
+      return {
+        ...state,
+        message: action.message,
+        currentUser: action.user,
+      };
+    }
+    case "LOGGED_IN_USER_FAIL": {
+      return {
+        ...state,
+        error: action.error,
+      };
+    }
     default: {
       return state;
     }

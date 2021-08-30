@@ -78,7 +78,7 @@ module.exports = {
       const id = data._id;
       const { name, email } = data;
       const sId = req.session.id;
-
+      req.session.userId = id;
       res.cookie("app_session", sId, {
         expires: new Date(Date.now() + 84000000),
         httpOnly: true,
@@ -93,5 +93,25 @@ module.exports = {
         },
       });
     })(req, res, next);
+  },
+  loggedInUser: async (req, res) => {
+    const { userId } = req.session;
+    if (userId) {
+      const user = await User.findOne({ _id: userId }).select("-password");
+      if (!user) {
+        return res.status(404).json({
+          error: "No matching user found. Please create a user.",
+        });
+      } else {
+        return res.status(200).json({
+          message: `You're logged in as ${user.name}.`,
+          user,
+        });
+      }
+    } else {
+      return res.status(402).json({
+        error: "Please login to continue.",
+      });
+    }
   },
 };
