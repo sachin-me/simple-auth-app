@@ -9,6 +9,7 @@ import Signin from "./components/Signin";
 import Signup from "./components/Signup";
 import actions from "./store/actions";
 import Dashboard from "./components/Dashboard";
+import PublicRoute from "./components/PublicRoutes";
 
 function App(props) {
   const [loading, setLoading] = useState(true);
@@ -32,9 +33,9 @@ function App(props) {
       <Router>
         <Header />
         <Switch>
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/signin" component={Signin} />
           <Route exact path="/" component={Dashboard} />
+          <PublicRoute exact path="/signup" component={Signup} />
+          <PublicRoute exact path="/signin" component={Signin} />
         </Switch>
       </Router>
     </div>
