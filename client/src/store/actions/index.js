@@ -51,6 +51,32 @@ const actions = {
         });
     };
   },
+  loggedInUser: () => {
+    return (dispatch) => {
+      fetch(`${uri}/profile`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "same-origin", // send cookies
+      })
+        .then((res) => res.json())
+        .then((user) => {
+          if (user.message) {
+            dispatch({
+              type: "LOGGED_IN_USER_SUCCESS",
+              message: user.message,
+              user: user.user,
+            });
+          } else {
+            dispatch({
+              type: "LOGGED_IN_USER_FAIL",
+              error: user.error,
+            });
+          }
+        });
+    };
+  },
 };
 
 module.exports = actions;
