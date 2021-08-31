@@ -55,7 +55,7 @@ const actions = {
         });
     };
   },
-  loggedInUser: () => {
+  loggedInUser: (cb) => {
     return (dispatch) => {
       fetch(`${uri}/profile`, {
         method: "GET",
@@ -72,14 +72,34 @@ const actions = {
               message: user.message,
               user: user.user,
             });
+            cb(true);
           } else {
             dispatch({
               type: "LOGGED_IN_USER_FAIL",
               error: user.error,
             });
+            cb(false);
           }
         });
     };
+  },
+  logout: (cb) => (dispatch) => {
+    fetch(`${uri}/logout`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "same-origin", // send cookies
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        if (user.message) {
+          dispatch({
+            type: "LOGOUT_USER",
+            message: user.message,
+          });
+          cb(true);
+        }
+      });
   },
 };
 

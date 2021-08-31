@@ -30,7 +30,7 @@ function Signin(props) {
     dispatch(
       actions.loginUser(payload, (success) => {
         if (success) {
-          props.history.push("/");
+          window.location.href = "/";
         }
       })
     );

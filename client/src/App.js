@@ -16,8 +16,15 @@ function App(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.loggedInUser());
-    setLoading(false);
+    dispatch(
+      actions.loggedInUser((success) => {
+        if (success) {
+          setLoading(false);
+        } else {
+          setLoading(false);
+        }
+      })
+    );
   }, []);
 
   if (loading) {

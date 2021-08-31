@@ -43,6 +43,12 @@ function rootReducer(state = initState, action) {
         error: action.error,
       };
     }
+    case "LOGOUT_USER": {
+      return {
+        ...state,
+        message: action.message
+      }
+    }
     default: {
       return state;
     }

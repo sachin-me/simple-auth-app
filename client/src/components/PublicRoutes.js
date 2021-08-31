@@ -16,6 +16,7 @@ function PublicRoute({ component: Component, restricted, ...rest }) {
     if (user?._id) {
       setLoading(false);
     }
+    setLoading(false);
   }, [user]);
 
   if (loading) {
