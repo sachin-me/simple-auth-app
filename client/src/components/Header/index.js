@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Loader from "react-loader-spinner";
+import actions from "../../store/actions";
 
 function Header(props) {
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
   const { user } = useSelector((state) => {
     return {
       user: state.currentUser,
@@ -16,14 +19,26 @@ function Header(props) {
     if (user?._id) {
       setLoading(false);
     }
+    setLoading(false);
   }, [user]);
 
   if (loading) {
-
-    return <div className="loader">
-      <Loader type="Puff" color="#00BFFF" height={100} width={100} />
-    </div>;
+    return (
+      <div className="loader">
+        <Loader type="Puff" color="#00BFFF" height={100} width={100} />
+      </div>
+    );
   }
+
+  const handleLogout = () => {
+    dispatch(
+      actions.logout((success) => {
+        if (success) {
+          window.location.href = "/signin";
+        }
+      })
+    );
+  };
 
   return (
     <Navbar bg="primary" variant="dark">
@@ -32,7 +47,11 @@ function Header(props) {
           Home
         </Link>
         <Nav className="me-auto" className="justify-content-end">
-          {(user?._id && <div className="nav-link">Logout</div>) || (
+          {(user?._id && (
+            <div className="nav-link" onClick={handleLogout}>
+              Logout
+            </div>
+          )) || (
             <>
               <Link to="/signup" className="nav-link">
                 Signup

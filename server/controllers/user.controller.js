@@ -109,9 +109,16 @@ module.exports = {
         });
       }
     } else {
-      return res.status(402).json({
+      return res.status(401).json({
         error: "Please login to continue.",
       });
     }
+  },
+  logout: async (req, res, next) => {
+    res.clearCookie("app_session");
+    req.session.destroy();
+    return res.json({
+      message: "You're logged out. Please login to continue.",
+    });
   },
 };
