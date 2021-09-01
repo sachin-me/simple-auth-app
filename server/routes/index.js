@@ -5,11 +5,11 @@ const hash = "bundle";
 router.get("*", function(req, res, next) {
 	const cssPath =
 		process.env.NODE_ENV == "production"
-			? `/dist/bundle/${hash}.css`
+			? `/bundle/${hash}.css`
 			: "/static/bundle.css";
 	const jsPath =
 		process.env.NODE_ENV == "production"
-			? `/dist/bundle/${hash}.js`
+			? `/bundle/${hash}.js`
 			: "/static/bundle.js";
 	res.render("index", { jsPath, cssPath });
 });
