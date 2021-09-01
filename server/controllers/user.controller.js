@@ -108,10 +108,6 @@ module.exports = {
           user,
         });
       }
-    } else {
-      return res.status(401).json({
-        error: "Please login to continue.",
-      });
     }
   },
   logout: async (req, res, next) => {

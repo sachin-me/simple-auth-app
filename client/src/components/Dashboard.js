@@ -33,7 +33,7 @@ function Dashboard(props) {
       {
         user?._id && (
           <Card.Body className="card-info">Hello, {user.name} 👋 .</Card.Body>
-        ) || <Card.Body>Please <Link to="/signin">login</Link> here.</Card.Body>
+        ) || <Card.Body className="card-info">Please <Link to="/signin">login</Link> here.</Card.Body>
       }
     </Card>
   );
