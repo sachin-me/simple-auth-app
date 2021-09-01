@@ -25,7 +25,6 @@ function App(props) {
         }
       })
     );
-    setLoading(false);
   }, []);
 
   if (loading) {

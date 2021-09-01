@@ -108,6 +108,10 @@ module.exports = {
           user,
         });
       }
+    } else {
+      return res.status(401).json({
+        error: "Please login to continue or create an account.",
+      });
     }
   },
   logout: async (req, res, next) => {
