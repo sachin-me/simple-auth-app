@@ -16,6 +16,7 @@ function Dashboard(props) {
     if (user?._id) {
       setLoading(false);
     }
+    setLoading(false);
   }, [user]);
 
   if (loading) {
