@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
 import Loader from "react-loader-spinner";
+import { Link } from "react-router-dom";
 
 function Dashboard(props) {
   const [loading, setLoading] = useState(true);
@@ -29,7 +30,11 @@ function Dashboard(props) {
 
   return (
     <Card className="form-wrapper center">
-      <Card.Body className="card-info">Hello, {user.name} 👋 .</Card.Body>
+      {
+        user?._id && (
+          <Card.Body className="card-info">Hello, {user.name} 👋 .</Card.Body>
+        ) || <Card.Body>Please <Link to="/signin">login</Link> here.</Card.Body>
+      }
     </Card>
   );
 }
